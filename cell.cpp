@@ -23,8 +23,6 @@ THE SOFTWARE.
 // system
 #include <vector>
 
-// 3rd party
-#include <crossguid/Guid.hpp>
 
 // local
 #include "logging.hpp"
