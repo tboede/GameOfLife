@@ -1,0 +1,13 @@
+
+
+*
+
+!*.gitignore
+
+!/spdlog/
+!/crossguid
+
+!*.cpp
+!*.hpp
+
+!/*LICENSE
