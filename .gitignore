@@ -2,11 +2,12 @@
 
 *
 
+!CMakeLists.txt
+
 !*.gitignore
 
 !/spdlog/
 !/crossguid
-!/yaml-cpp
 
 !*.cpp
 !*.hpp
