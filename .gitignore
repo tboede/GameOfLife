@@ -8,6 +8,7 @@
 
 !/spdlog/
 !/crossguid
+!/yaml-cpp
 
 !*.cpp
 !*.hpp
