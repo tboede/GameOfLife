@@ -51,8 +51,8 @@ void World::Add(std::unique_ptr<Cell> && cell) {
 
 	auto pos = cell->getPosition();
 	
-	if( pos.x < width && pos.x > -width
-	  && pos.y < height && pos.y > -width){
+	if( pos.x <= width && pos.x >= -width
+	  && pos.y <= height && pos.y >= -width){
 
 		logger->debug("Add cell");
 		addQueue.push(std::move(cell));
@@ -159,7 +159,7 @@ void World::Update() {
 
 void World::Populate(int x, int y){
 
-	if( x >= width || x <= -width || y >= height || y <= -height){
+	if( x > width || x < -width || y > height || y < -height){
 
 		return;
 	}
@@ -189,35 +189,6 @@ void World::Status() {
 
 	logger->info(sstream.str());
 
-}
-
-void World::Display() {
-
-	std::string * screen = new std::string[height*2+1];
-
-	for(int y=0; y<height*2+1; ++y){
-
-		screen[y]=std::string(width*2+1,' ');
-		screen[y][0]='|';
-		screen[y][width*2]='|';
-	}
-
-	screen[0]=std::string(width*2+1,'-');
-	screen[height*2]=std::string(width*2+1,'-');
-
-	for(auto & item : cellList) {
-
-		auto pos = item->getPosition();
-
-		screen[-pos.y+height][pos.x+width]='x';
-	}
-
-	system("clear");
-
-	for(int y=0; y<height*2+1; ++y){
-
-		std::cout << screen[y] << std::endl;
-	}
 }
 
 json11::Json World::Store() {

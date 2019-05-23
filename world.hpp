@@ -85,9 +85,6 @@ public:
 	/// Prints current world status
 	void Status();
 
-	/// Display current world state on screen
-	void Display();
-
 	/// Creates a json array as snapshot of the current generation
 	json11::Json Store();
 
