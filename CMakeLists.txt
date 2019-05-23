@@ -6,7 +6,7 @@ set(GameOfLife_VERSION_MINOR 0)
 
 add_subdirectory("yaml-cpp")
 
-set(SOURCES main.cpp world.cpp cell.cpp json11.cpp)
+set(SOURCES gameoflife.cpp world.cpp cell.cpp json11.cpp)
 
 include_directories("yaml-cpp/include" "spdlog/include")
 
