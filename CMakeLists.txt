@@ -8,7 +8,7 @@ add_subdirectory("yaml-cpp")
 
 set(SOURCES main.cpp world.cpp cell.cpp json11.cpp)
 
-include_directories("yaml-cpp/include")
+include_directories("yaml-cpp/include" "spdlog/include")
 
 add_executable(GameOfLife ${SOURCES})
 

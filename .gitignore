@@ -6,7 +6,7 @@
 
 !*.gitignore
 
-!/spdlog/
+!/spdlog
 !/crossguid
 !/yaml-cpp
 
