@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <sstream>
 
 #include <yaml-cpp/yaml.h>
+#include <cxxopts.hpp>
 
 #include "logging.hpp"
 #include "cell.hpp"
@@ -36,13 +37,47 @@ THE SOFTWARE.
 
 int main(int argc, char ** argv){
 
+	
+	/////////////////////////////////
+	////////// Commandline //////////
+	/////////////////////////////////
+
+	cxxopts::Options options("GameOfLife");
+
+	options.add_options("required")
+	        ("config","Config file", cxxopts::value<std::string>());
+
+	options.add_options()
+	        ("h,help","Show help", cxxopts::value<bool>());
+
+	auto result = options.parse(argc,argv);
+
+	if(result["help"].count() > 0){
+
+		std::cerr << options.help(std::vector<std::string>()) << std::endl;
+		return 1;
+	}
+
+	if(result["config"].count() < 1){
+
+		throw cxxopts::option_required_exception("config");
+	}
+
+	std::string configpath = result["config"].as<std::string>();
+
+
+	/////////////////////////////////
+	//////////// Config /////////////
+	/////////////////////////////////
+
 	spdlog::set_level(spdlog::level::info);
 
 	auto logger = Logger::get("console");
 
 	logger->info("Start");
 
-	YAML::Node config = YAML::LoadFile("config.yaml");
+	YAML::Node config = YAML::LoadFile(configpath);
+
 
 	/////////////////////////////////
 	/////////// World cfg ///////////

@@ -29,6 +29,7 @@ THE SOFTWARE.
 
 // 3rd party
 #include "json11.hpp"
+#include <cxxopts.hpp>
 
 // local
 #include "logging.hpp"
@@ -75,13 +76,51 @@ void display(int width,int height,const json11::Json& entry) {
 
 int main(int argc, char ** argv) {
 
+	/////////////////////////////////
+	////////// Commandline //////////
+	/////////////////////////////////
+
+	cxxopts::Options options("GameOfLifeViewer");
+
+	options.add_options("required")
+	        ("database","Database file", cxxopts::value<std::string>());
+
+	options.add_options()
+	        ("h,help","Show help", cxxopts::value<bool>());
+
+	auto result = options.parse(argc,argv);
+
+	if(result["help"].count() > 0){
+
+		std::cerr << options.help(std::vector<std::string>()) << std::endl;
+		return 1;
+	}
+
+	if(result["database"].count() < 1){
+
+		throw cxxopts::option_required_exception("database");
+	}
+
+	std::string dbpath = result["database"].as<std::string>();
+
+
+	/////////////////////////////////
+	//////////// Config /////////////
+	/////////////////////////////////
+
 	auto logger = Logger::get("viewer");
 
 	logger->info("Start");
 
-	std::ifstream db("db.json");
+	std::ifstream db(dbpath);
 	
 	db.exceptions(std::ios_base::badbit);
+
+
+	/////////////////////////////////
+	/////////// Main loop ///////////
+	/////////////////////////////////
+
 
 	std::string buffer;
 

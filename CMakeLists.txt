@@ -9,7 +9,7 @@ add_subdirectory("yaml-cpp")
 set(GOL_SRC gameoflife.cpp world.cpp cell.cpp json11.cpp)
 set(VIEW_SRC gameoflife_viewer.cpp  json11.cpp)
 
-include_directories("yaml-cpp/include" "spdlog/include")
+include_directories("yaml-cpp/include" "spdlog/include" "cxxopts/include")
 
 add_executable(GameOfLife ${GOL_SRC})
 add_executable(GameOfLifeViewer ${VIEW_SRC})
