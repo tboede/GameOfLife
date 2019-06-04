@@ -45,7 +45,8 @@ int main(int argc, char ** argv){
 	cxxopts::Options options("GameOfLife");
 
 	options.add_options("required")
-	        ("config","Config file", cxxopts::value<std::string>());
+	        ("config","Config file", cxxopts::value<std::string>())
+	        ("generations","Maximum amount of iterations", cxxopts::value<size_t>());
 
 	options.add_options()
 	        ("h,help","Show help", cxxopts::value<bool>());
@@ -63,7 +64,13 @@ int main(int argc, char ** argv){
 		throw cxxopts::option_required_exception("config");
 	}
 
+	if(result["generations"].count() < 1){
+
+		throw cxxopts::option_required_exception("generations");
+	}
+
 	std::string configpath = result["config"].as<std::string>();
+	size_t maxgens = result["generations"].as<size_t>();
 
 
 	/////////////////////////////////
@@ -84,8 +91,6 @@ int main(int argc, char ** argv){
 	/////////////////////////////////
 
 	YAML::Node worldcfg = config["World"];
-
-	size_t maxgens = worldcfg["maxgens"].as<size_t>(1000);
 
 	World world(worldcfg["width"].as<uint16_t>(),worldcfg["height"].as<uint16_t>());
 
